@@ -9,7 +9,7 @@ namespace PortScan.IpDect
 {
     class IpGenerator
     {
-        public List<IP> IpList { get; private set; }
+        public  List<IP> IpList { get; private set; }
         private string HostNameOrIp { get; set; }
         private const string DefaultIpRange = "0/24";
         private readonly List<int> ListDefaultDoors = new List<int> { 80, 443, 22, 21, 20, 25, 53, 110, 143, 445, 3389 };
@@ -55,8 +55,6 @@ namespace PortScan.IpDect
             var regex = new Regex(pattern);
             return regex.IsMatch(input);
         }
-
-
 
         private bool IsValidIp(string input)
         {
