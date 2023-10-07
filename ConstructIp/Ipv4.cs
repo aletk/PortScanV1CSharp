@@ -18,7 +18,5 @@ namespace PortScan.ConstructIp
         {
             Ip = ip;
         }
- 
-
     }
 }

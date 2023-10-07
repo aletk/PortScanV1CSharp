@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Runtime.Remoting.Messaging;
 using Microsoft.Extensions.Logging;
 using PortScan.Logger;
+using PortScan.ConstructIp;
 
 namespace PortScan.IpDect
 {
@@ -14,19 +15,20 @@ namespace PortScan.IpDect
     {
         static readonly string TYPE_CLASS = "DnsResolver";
         static readonly ILogger _log = new Logs(TYPE_CLASS, new LoggerConfiguration());
-        public static string ResolveDns(string hostDns, bool useIpv6 = false)
+        public static IP ResolveDns(string hostDns, bool useIpv6 = false)
         {
             try
             {
                 var addressFamily = useIpv6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork;
                 var addresses = Dns.GetHostAddresses(hostDns);
 
-                var address = addresses.FirstOrDefault(addr => addr.AddressFamily == addressFamily)
-                              ?? addresses.FirstOrDefault();
+                var address = addresses.FirstOrDefault(addr => addr.AddressFamily == addressFamily).ToString()
+                            ?? addresses.FirstOrDefault().ToString();
 
-                return string.IsNullOrEmpty(address.ToString())
-                        ? throw new DnsResolutionException("No IP addresses found.")
-                        : address.ToString();
+                if (string.IsNullOrEmpty(address))
+                    throw new DnsResolutionException("No IP addresses found.");
+
+                return ReturnIPResolve(address, useIpv6);
             }
             catch (SocketException ex)
             {
@@ -36,6 +38,18 @@ namespace PortScan.IpDect
             {
                 throw new DnsResolutionException($"An unexpected error occurred: {ex.Message}");
             }
+        }
+
+        private static IP ReturnIPResolve(string ipaddress, bool useIpv6)
+        {
+            IP ip;
+
+            if (useIpv6)
+                ip = new Ipv6() { Ip = ipaddress };
+            else
+                ip = new Ipv4() { Ip = ipaddress };
+
+            return ip;
         }
 
         public static List<IPAddress> ResolveMyLocalIp()
