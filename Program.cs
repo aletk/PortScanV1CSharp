@@ -30,10 +30,8 @@ namespace PortScan
             //}
             //Console.ReadKey();
 
-            ILogger _log = new Logs("ScanTcp", new LoggerConfiguration());
-
             var ping = new Controller("192.168.0.0/24", "TCP");
-            _ = ping.ExecController();
+            ping.ExecController();
             Console.ReadKey();
 
         }

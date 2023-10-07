@@ -43,7 +43,7 @@ namespace PortScan
                     Console.WriteLine($"[{logLevel}] - {Name}: {message}");
                 }
 
-                if (!string.IsNullOrEmpty(_config.LogFileName)) 
+                if (!string.IsNullOrEmpty(_config.LogFileName))
                 {
                     File.AppendAllText(_config.LogFileName, $"[{DateTime.Now}] - [{logLevel}] - {Name}: {message}{Environment.NewLine}");
                 }

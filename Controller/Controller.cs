@@ -12,33 +12,19 @@ namespace PortScan.Controllers
 {
     public class Controller
     {
+        private readonly ILogger _log;
         public string IP { get; set; }
-        public string TypeScan { get; set; }
 
         public Controller(string ipscan, string typescan)
         {
             IP = ipscan;
-            TypeScan = typescan;
+            _log = new Logs(typescan, new LoggerConfiguration());
         }
 
-        public async Task ExecController()
+        public void ExecController()
         {
-            ILogger _log = new Logs(TypeScan, new LoggerConfiguration());
-
             PingScan ping = new PingScan(IP, _log);
-
-            var tasks = new List<Task>();
-
-            foreach (var ip in ping.IpList)
-            {
-                foreach (var port in ip.ListPorta)
-                {
-                    tasks.Add(ping.PingIpAsync(ip.Ip, port));
-                }
-            }
-
-            await Task.WhenAll(tasks);
-            _log.LogInformation("Verificação de portas concluída.");
+            ping.ExecScan();
         }
     }
 }
