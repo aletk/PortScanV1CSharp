@@ -16,6 +16,15 @@ namespace PortScan.IpDect
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        public async void ExecScan()
+        {
+            var tasks = new List<Task>();
+            IpList.ForEach(ip => ip.ListPorta.ForEach(port => tasks.Add(PingIpAsync(ip.Ip, port))));
+
+            await Task.WhenAll(tasks);
+            _logger.LogInformation("Verificação de portas concluída.");
+        }
+
         public async Task PingIpAsync(string ipAddress, int port)
         {
             using (Socket sock = new Socket(SocketType.Stream, ProtocolType.Tcp))

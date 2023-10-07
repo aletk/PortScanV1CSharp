@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using PortScan.ConstructIp;
 
 using System.Text.RegularExpressions;
+using System.Net.Sockets;
 
 namespace PortScan.IpDect
 {
     class IpGenerator
     {
-        public  List<IP> IpList { get; private set; }
+        public List<IP> IpList { get; private set; }
+        public string HostNameResolve { get; set; }
         private string HostNameOrIp { get; set; }
-        private const string DefaultIpRange = "0/24";
-        private readonly List<int> ListDefaultDoors = new List<int> { 80, 443, 22, 21, 20, 25, 53, 110, 143, 445, 3389 };
+        private const string DEFAULT_IP_RANGE = "0/24";
 
         public IpGenerator(string hostNameOrIp)
         {
@@ -23,19 +25,12 @@ namespace PortScan.IpDect
         public List<IP> GenerateIpList()
         {
             var ipList = new List<IP>();
-
             try
             {
-                if (IsHostName(HostNameOrIp))
-                {
-                    var _dnsResolver = new DnsResolver(HostNameOrIp);
-                    HostNameOrIp = _dnsResolver.ResolvedDns;
-                }
+                ResolveHost();
 
-                if (IsValidIp(HostNameOrIp))
-                {
-                    ipList.AddRange(GenerateIpAddresses(HostNameOrIp, DefaultIpRange));
-                }
+                if (IsValidIp(HostNameResolve))
+                    ipList.AddRange(GenerateIpAddresses(HostNameResolve, DEFAULT_IP_RANGE));
             }
             catch (DnsResolutionException ex)
             {
@@ -49,6 +44,14 @@ namespace PortScan.IpDect
             return ipList;
         }
 
+        private void ResolveHost()
+        {
+            if (IsHostName(HostNameOrIp))
+                HostNameResolve = DnsResolver.ResolveDns(HostNameOrIp);
+            else
+                HostNameResolve = HostNameOrIp;
+        }
+
         private bool IsHostName(string input)
         {
             string pattern = "[a-zA-Z]";
@@ -58,7 +61,7 @@ namespace PortScan.IpDect
 
         private bool IsValidIp(string input)
         {
-            if (input.Contains(DefaultIpRange))
+            if (input.Contains(DEFAULT_IP_RANGE))
                 return true;
 
             if (IPAddress.TryParse(input, out _))
@@ -70,31 +73,34 @@ namespace PortScan.IpDect
         private List<IP> GenerateIpAddresses(string baseIp, string ipRange)
         {
             var ListIpAddresses = new List<IP>();
-            var octets = baseIp.Split('.').ToList();
-            var range = octets.LastOrDefault();
-            octets.RemoveAt(3);
-            var cutIp = string.Join(".", octets);
 
-            if (range == ipRange)
+            CropIpAddress(baseIp, out string rangeip, out string cutIp);
+
+            if (rangeip == ipRange)
             {
-                var ipRangeList = Enumerable.Range(0, 256).ToList();
+                var ipRangeList = Enumerable.Range(0, 255).ToList();
 
-                foreach (var rangeAdress in ipRangeList)
-                {
-                    ListIpAddresses.Add(new IP() { Ip = $"{cutIp}.{rangeAdress}", ListPorta = ListDefaultDoors });
-                }
+                ipRangeList.ForEach(range => ListIpAddresses.Add(new Ipv4() { Ip = $"{cutIp}.{range}", ListPorta = GetDefaultDoors() })); ;
+                return ListIpAddresses;
             }
-            else
-                ListIpAddresses.Add(new IP(baseIp) { ListPorta = GetDoorOrDefaultDoors() });
+            ListIpAddresses.Add(new Ipv4(baseIp) { ListPorta = GetDefaultDoors() });
+
 
             return ListIpAddresses;
+
         }
 
-        private List<int> GetDoorOrDefaultDoors()
+        private void CropIpAddress(string baseIp, out string range, out string cutIp)
         {
-            return ListDefaultDoors;
+            var octets = baseIp.Split('.').ToList();
+            range = octets.LastOrDefault();
+            octets.RemoveAt(3);
+            cutIp = string.Join(".", octets);
         }
+
+        private List<int> GetDefaultDoors() => new List<int> { 80, 443, 22, 21, 20, 25, 53, 110, 143, 445, 3389 };
+
+
+
     }
-
-
 }

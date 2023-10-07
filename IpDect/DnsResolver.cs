@@ -5,28 +5,21 @@ using System.Net.Sockets;
 using System.Net;
 using System.Diagnostics;
 using System.Runtime.Remoting.Messaging;
+using Microsoft.Extensions.Logging;
+using PortScan.Logger;
 
 namespace PortScan.IpDect
 {
-    public class DnsResolver
+    public static class DnsResolver
     {
-        public string HostDns { get; set; }
-        public string ResolvedDns { get; set; }
-        public bool UseIpv6 { get; set; }
-        public string MyHost { get; set; } = string.Empty;
-
-        public DnsResolver(string dns, bool useIpv6 = false)
-        {
-            HostDns = dns;
-            ResolvedDns = ResolveDns(useIpv6);
-        }
-
-        private string ResolveDns(bool useIpv6)
+        static readonly string TYPE_CLASS = "DnsResolver";
+        static readonly ILogger _log = new Logs(TYPE_CLASS, new LoggerConfiguration());
+        public static string ResolveDns(string hostDns, bool useIpv6 = false)
         {
             try
             {
                 var addressFamily = useIpv6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork;
-                var addresses = Dns.GetHostAddresses(HostDns);
+                var addresses = Dns.GetHostAddresses(hostDns);
 
                 var address = addresses.FirstOrDefault(addr => addr.AddressFamily == addressFamily)
                               ?? addresses.FirstOrDefault();
@@ -45,25 +38,18 @@ namespace PortScan.IpDect
             }
         }
 
-        public List<IPAddress> ResolveMyLocalIp()
+        public static List<IPAddress> ResolveMyLocalIp()
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
-            {
-                Console.WriteLine("No Network Available");
-            }
+                _log.LogError("No Network Available");
 
             IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
-
             var ipv4Addresses = ipEntry.AddressList.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork).ToList();
 
             if (ipv4Addresses.Any())
-            {
                 return ipv4Addresses;
-            }
             else
-            {
-                throw new Exception("Endereço IP local não encontrado.");
-            }
+                throw new InvalidIpAddressException("Endereço IP local não encontrado.");
         }
     }
 
