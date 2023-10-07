@@ -11,3 +11,5 @@ bin/Debug/PortScan.exe.config
 .vs/PortScan/FileContentIndex/b8fbc840-e44a-4ce4-ba42-448377f5bae3.vsidx
 .vs/PortScan/FileContentIndex/034be906-b45f-4a2d-bf54-c93fcfb31439.vsidx
 .vs/PortScan/FileContentIndex/5e971d89-1795-4b05-8b05-f3535794b02c.vsidx
+/obj/Debug
+/obj
