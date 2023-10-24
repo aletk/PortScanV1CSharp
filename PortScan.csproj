@@ -138,13 +138,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Controller.cs" />
-    <Compile Include="Converts\ConvertExtentions.cs" />
+    <Compile Include="Converts\ConvertExtensions.cs" />
+    <Compile Include="Converts\IpExtensions.cs" />
     <Compile Include="IpDect\DnsResolver.cs" />
     <Compile Include="IpDect\IpGenerator.cs" />
     <Compile Include="IpDect\PingScan.cs" />
-	  <Compile Include="ConstructIp\IP.cs" />
-	  <Compile Include="ConstructIp\Ipv4.cs" />
-	  <Compile Include="ConstructIp\Ipv6.cs" />
+    <Compile Include="ConstructIp\IP.cs" />
+    <Compile Include="ConstructIp\Ipv4.cs" />
+    <Compile Include="ConstructIp\Ipv6.cs" />
+    <Compile Include="IpDect\TypeScan.cs" />
     <Compile Include="Logger\LoggerConfiguration.cs" />
     <Compile Include="Logger\Logs.cs" />
     <Compile Include="Program.cs" />
@@ -166,5 +168,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -36,7 +36,7 @@ namespace PortScan.IpDect
                 }
                 catch
                 {
-                    _logger.LogInformation($"Porta não encontrada: {port}, IP: {ipAddress}");
+                    _logger.LogError($"Porta não encontrada: {port}, IP: {ipAddress}");
                 }
             }
         }

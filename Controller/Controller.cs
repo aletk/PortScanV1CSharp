@@ -2,29 +2,37 @@
 using PortScan.IpDect;
 using PortScan.Logger;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TypeScanConst;
 
 namespace PortScan.Controllers
 {
     public class Controller
     {
         private readonly ILogger _log;
+        public string _typeScan = string.Empty ;
         public string IP { get; set; }
 
         public Controller(string ipscan, string typescan)
         {
             IP = ipscan;
+            _typeScan = typescan;
             _log = new Logs(typescan, new LoggerConfiguration());
         }
 
         public void ExecController()
         {
-            PingScan ping = new PingScan(IP, _log);
-            ping.ExecScan();
+            switch (_typeScan)
+            {
+                case TypeScan.TCP:
+                    PingScan pingTcp = new PingScan(IP, _log);
+                    pingTcp.ExecScan();
+                    break;
+                
+                case TypeScan.ICMP:
+                    PingScan pings = new PingScan(IP, _log);
+                    pings.ExecScan();
+                    break;
+            }
         }
     }
 }
