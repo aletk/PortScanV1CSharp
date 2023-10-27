@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using TypeScanConst;
 
 namespace PortScan.ConstructIp
 {
@@ -10,6 +11,6 @@ namespace PortScan.ConstructIp
         List<int> ListPorta { get; set; }
         string Ip { get; set; }
         AddressFamily FamilyAddress { get; }
-
+       TypeScan ScanType { get; set; }
     }
 }

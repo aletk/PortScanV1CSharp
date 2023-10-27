@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using PortScan.Logger;
 using PortScan.Controllers;
+using TypeScanConst;
 
 namespace PortScan
 {
@@ -30,7 +31,7 @@ namespace PortScan
             //}
             //Console.ReadKey();
 
-            var ping = new Controller("192.168.0.0/24", "TCP");
+            var ping = new Controller("172.16.26.0/24",TypeScan.ICMP);
             ping.ExecController();
             Console.ReadKey();
 

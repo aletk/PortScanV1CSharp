@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using PortScan.ConstructIp;
-
 using System.Text.RegularExpressions;
-using System.Net.Sockets;
 using PortScan.Extensions;
+using TypeScanConst;
 
 namespace PortScan.IpDect
 {
@@ -14,12 +13,14 @@ namespace PortScan.IpDect
     {
         public List<IP> IpList { get; private set; }
         public IP HostNameResolve { get; set; }
-        private string HostNameOrIp { get; set; }
+        private string _hostNameOrIp { get; set; }
         private const string DEFAULT_IP_RANGE = "0/24";
+        private TypeScan _typeScan { get; set; }
 
-        public IpGenerator(string hostNameOrIp)
+        public IpGenerator(string hostNameOrIp, TypeScan typeScan)
         {
-            HostNameOrIp = hostNameOrIp;
+            _hostNameOrIp = hostNameOrIp;
+            _typeScan = typeScan;
             IpList = GenerateIpList();
         }
 
@@ -31,7 +32,7 @@ namespace PortScan.IpDect
                 ResolveHost(false);
 
                 if (HostNameResolve.IsValidIp())
-                    ipList.AddRange(GenerateListIpAddresse(HostNameResolve, DEFAULT_IP_RANGE));
+                    ipList.AddRange(GenerateListIpAddresse(HostNameResolve, DEFAULT_IP_RANGE, _typeScan));
             }
             catch (DnsResolutionException ex)
             {
@@ -47,10 +48,10 @@ namespace PortScan.IpDect
 
         private void ResolveHost(bool useIpv6)
         {
-            if (IsHostName(HostNameOrIp))
-                HostNameResolve = DnsResolver.ResolveDns(HostNameOrIp, useIpv6);
+            if (IsHostName(_hostNameOrIp))
+                HostNameResolve = DnsResolver.ResolveDns(_hostNameOrIp, useIpv6);
             else
-                HostNameResolve = new Ipv4(HostNameOrIp);
+                HostNameResolve = new Ipv4(_hostNameOrIp);
         }
         private bool IsHostName(string input)
         {
@@ -59,7 +60,7 @@ namespace PortScan.IpDect
             return regex.IsMatch(input);
         }
 
-        private List<IP> GenerateListIpAddresse(IP baseIp, string ipRange)
+        private List<IP> GenerateListIpAddresse(IP baseIp, string ipRange, TypeScan typeScan)
         {
             var ListIpAddresses = new List<IP>();
 
@@ -69,11 +70,10 @@ namespace PortScan.IpDect
             {
                 var ipRangeList = Enumerable.Range(0, 255).ToList();
 
-                ipRangeList.ForEach(range => ListIpAddresses.Add(new Ipv4() { Ip = $"{cutIp}.{range}", ListPorta = GetDefaultDoors() })); ;
+                ipRangeList.ForEach(range => ListIpAddresses.Add(new Ipv4() { Ip = $"{cutIp}.{range}", ListPorta = GetDefaultDoors(), ScanType = typeScan })); ;
                 return ListIpAddresses;
             }
-            ListIpAddresses.Add(new Ipv4(baseIp.Ip) { ListPorta = GetDefaultDoors() });
-
+            ListIpAddresses.Add(new Ipv4(baseIp.Ip) { ListPorta = GetDefaultDoors(), ScanType = typeScan });
 
             return ListIpAddresses;
         }

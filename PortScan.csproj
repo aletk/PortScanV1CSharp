@@ -140,6 +140,7 @@
     <Compile Include="Controller\Controller.cs" />
     <Compile Include="Converts\ConvertExtensions.cs" />
     <Compile Include="Converts\IpExtensions.cs" />
+    <Compile Include="Converts\EnumExtensions.cs" />
     <Compile Include="IpDect\DnsResolver.cs" />
     <Compile Include="IpDect\IpGenerator.cs" />
     <Compile Include="IpDect\PingScan.cs" />

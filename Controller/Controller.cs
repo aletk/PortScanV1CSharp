@@ -11,32 +11,22 @@ namespace PortScan.Controllers
     public class Controller
     {
         private readonly ILogger _log;
-        public string _typeScan = string.Empty ;
+        private TypeScan _typeScan {get; set;}
         public string IP { get; set; }
 
-        public Controller(string ipscan, string typescan)
+        public Controller(string ipscan, TypeScan typescan)
         {
             IP = ipscan;
             _typeScan = typescan;
-            _log = new Logs(typescan, new LoggerConfiguration());
+            _log = new Logs(typescan.GetDescription(), new LoggerConfiguration());
         }
 
         public void ExecController()
         {
-            const string TCP = "TCP";
-            const string ICMP = "ICMP";
-
-            switch (_typeScan)
-            {//TypeScan.TCP.GetDescription()
-                case TCP:
-                    PingScan pingTcp = new PingScan(IP, _log);
-                    pingTcp.ExecScan();
-                    break;
-                
-                case ICMP:
-                    PingScan pings = new PingScan(IP, _log);
-                    pings.ExecScan();
-                    break;
+            if(_typeScan == TypeScan.TCP ||  _typeScan == TypeScan.ICMP)
+            {
+                PingScan pingTcp = new PingScan(IP, _typeScan, _log);
+                pingTcp.ExecScan();
             }
         }
     }
