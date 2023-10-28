@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using PortScan.IpDect;
+﻿using System.Windows.Forms;
 using System;
-using System.Runtime.InteropServices;
-using PortScan.Logger;
 using PortScan.Controllers;
 using TypeScanConst;
+using PortScan.Forms;
 
 namespace PortScan
 {
@@ -12,6 +10,7 @@ namespace PortScan
 
     class Program
     {
+        [STAThread]
         static void Main()
         {
             //var ips = new IpGenerator("192.168.0.0/24");
@@ -35,6 +34,9 @@ namespace PortScan
             ping.ExecController();
             Console.ReadKey();
 
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new PortScanUI());
         }
     }
 }
