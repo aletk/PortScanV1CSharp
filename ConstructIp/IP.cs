@@ -11,6 +11,6 @@ namespace PortScan.ConstructIp
         List<int> ListPorta { get; set; }
         string Ip { get; set; }
         AddressFamily FamilyAddress { get; }
-       TypeScan ScanType { get; set; }
+        TypeScan TypeScan { get; set; }
     }
 }

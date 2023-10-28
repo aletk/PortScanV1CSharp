@@ -15,6 +15,7 @@ namespace PortScan.IpDect
     {
         static readonly string TYPE_CLASS = "DnsResolver";
         static readonly ILogger _log = new Logs(TYPE_CLASS, new LoggerConfiguration());
+
         public static IP ResolveDns(string hostDns, bool useIpv6 = false)
         {
             try

@@ -1,27 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using PortScan.ConstructIp;
 using System.Text.RegularExpressions;
 using PortScan.Extensions;
 using TypeScanConst;
+using Microsoft.Extensions.Logging;
 
 namespace PortScan.IpDect
 {
     class IpGenerator
     {
-        public List<IP> IpList { get; private set; }
-        public IP HostNameResolve { get; set; }
-        private string _hostNameOrIp { get; set; }
         private const string DEFAULT_IP_RANGE = "0/24";
+        private string _hostNameOrIp { get; set; }
         private TypeScan _typeScan { get; set; }
+        public IP HostNameResolve { get; set; }
+        public List<IP> IpList { get; private set; }
+        protected ILogger _logger;
 
-        public IpGenerator(string hostNameOrIp, TypeScan typeScan)
+        public IpGenerator(string hostNameOrIp, TypeScan typeScan, ILogger logger)
         {
             _hostNameOrIp = hostNameOrIp;
             _typeScan = typeScan;
             IpList = GenerateIpList();
+            _logger = logger;
         }
 
         public List<IP> GenerateIpList()
@@ -36,11 +38,11 @@ namespace PortScan.IpDect
             }
             catch (DnsResolutionException ex)
             {
-                Console.WriteLine($"DnsResolutionException: {ex.Message}");
+                _logger.LogError($"DnsResolutionException: {ex.Message}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+                _logger.LogError($"An unexpected error occurred:: {ex.Message}");
             }
 
             return ipList;
@@ -51,12 +53,14 @@ namespace PortScan.IpDect
             if (IsHostName(_hostNameOrIp))
                 HostNameResolve = DnsResolver.ResolveDns(_hostNameOrIp, useIpv6);
             else
-                HostNameResolve = new Ipv4(_hostNameOrIp);
+                HostNameResolve = new Ipv4(_hostNameOrIp, _typeScan);
         }
+
         private bool IsHostName(string input)
         {
-            string pattern = "[a-zA-Z]";
-            var regex = new Regex(pattern);
+            const string PATTERN_REGEX = "[a-zA-Z]";
+            var regex = new Regex(PATTERN_REGEX);
+
             return regex.IsMatch(input);
         }
 
@@ -64,31 +68,31 @@ namespace PortScan.IpDect
         {
             var ListIpAddresses = new List<IP>();
 
-            CropIpAddress(baseIp.Ip, out string rangeip, out string cutIp);
+            var ipCutOff = CropIpAddress(baseIp.Ip);
 
-            if (rangeip == ipRange)
+            if (ipCutOff.range == ipRange)
             {
                 var ipRangeList = Enumerable.Range(0, 255).ToList();
+                ipRangeList.ForEach(range => ListIpAddresses.Add(new Ipv4(typeScan) { Ip = $"{ipCutOff.cutIp}.{range}", ListPorta = GetDefaultDoors() })); ;
 
-                ipRangeList.ForEach(range => ListIpAddresses.Add(new Ipv4() { Ip = $"{cutIp}.{range}", ListPorta = GetDefaultDoors(), ScanType = typeScan })); ;
                 return ListIpAddresses;
             }
-            ListIpAddresses.Add(new Ipv4(baseIp.Ip) { ListPorta = GetDefaultDoors(), ScanType = typeScan });
+            ListIpAddresses.Add(new Ipv4(baseIp.Ip, typeScan) { ListPorta = GetDefaultDoors() });
 
             return ListIpAddresses;
         }
 
-        private void CropIpAddress(string baseIp, out string range, out string cutIp)
+        private (string range, string cutIp) CropIpAddress(string baseIp)
         {
             var octets = baseIp.Split('.').ToList();
-            range = octets.LastOrDefault();
+            var range = octets.LastOrDefault();
             octets.RemoveAt(3);
-            cutIp = string.Join(".", octets);
+            var cutIp = string.Join(".", octets);
+
+            return (range, cutIp);
         }
 
         private List<int> GetDefaultDoors() => new List<int> { 80, 443, 22, 21, 20, 25, 53, 110, 143, 445, 3389 };
-
-
 
     }
 }

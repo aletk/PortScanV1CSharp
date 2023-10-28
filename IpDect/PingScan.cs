@@ -4,21 +4,18 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using PortScan.ConstructIp;
 using TypeScanConst;
 
 namespace PortScan.IpDect
 {
     internal class PingScan : IpGenerator
     {
-        private readonly ILogger _logger;
         private TypeScan _typeScan;
 
         public PingScan(string ipadress, TypeScan typeScan, ILogger logger)
-            : base(ipadress, typeScan)
+            : base(ipadress, typeScan, logger)
         {
             _typeScan = typeScan;
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async void ExecScan()

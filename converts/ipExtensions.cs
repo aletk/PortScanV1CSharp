@@ -15,6 +15,7 @@ namespace PortScan.Extensions
 
             if (!IPAddress.TryParse(ip.Ip, out _))
                 return true;
+
             throw new InvalidIpAddressException($"Invalid IP address: {ip.Ip}");
         }
     }

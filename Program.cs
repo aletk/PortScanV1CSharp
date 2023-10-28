@@ -26,12 +26,12 @@ namespace PortScan
             //var ips = dns.ResolveMyLocalIp();
 
             //foreach (var ip in ips)
-            //{
+            //{ 
             //    Console.WriteLine(ip.ToString());
             //}
             //Console.ReadKey();
 
-            var ping = new Controller("172.16.26.0/24",TypeScan.ICMP);
+            var ping = new Controller("192.168.0.0/24", TypeScan.ICMP);
             ping.ExecController();
             Console.ReadKey();
 
