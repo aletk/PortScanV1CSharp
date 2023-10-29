@@ -13,8 +13,10 @@ namespace PortScan.Extensions
             if (ip.Ip.Contains(DEFAULT_IP_RANGE))
                 return true;
 
-            if (!IPAddress.TryParse(ip.Ip, out _))
+            if (IPAddress.TryParse(ip.Ip, out _))
                 return true;
+
+                
 
             throw new InvalidIpAddressException($"Invalid IP address: {ip.Ip}");
         }

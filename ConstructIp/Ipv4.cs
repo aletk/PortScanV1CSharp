@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using TypeScanConst;
 
 namespace PortScan.ConstructIp
@@ -15,6 +13,11 @@ namespace PortScan.ConstructIp
         public string Ip { get; set; }
         private TypeScan _typeScan { get; set; }
         TypeScan IP.TypeScan { get => _typeScan; set => _typeScan = value; }
+        public string openPorts
+        {
+            get;
+            set;
+        }
 
         public Ipv4() { }
 

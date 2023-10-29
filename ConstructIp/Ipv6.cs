@@ -11,6 +11,14 @@ namespace PortScan.ConstructIp
         public string Ip { get; set; }
         private TypeScan _typeScan { get; set; }
         TypeScan IP.TypeScan { get => _typeScan; set => _typeScan = value; }
+        public string openPorts
+        {
+            get
+            {
+                return string.Join(";", ListPorta);
+            }
+            set { }
+        }
 
         public Ipv6() { }
         public Ipv6(string ip, TypeScan typeScan)

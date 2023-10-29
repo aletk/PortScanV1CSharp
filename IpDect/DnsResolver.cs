@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
 using System.Net;
-using System.Diagnostics;
-using System.Runtime.Remoting.Messaging;
 using Microsoft.Extensions.Logging;
 using PortScan.Logger;
 using PortScan.ConstructIp;
@@ -13,8 +11,8 @@ namespace PortScan.IpDect
 {
     public static class DnsResolver
     {
-        static readonly string TYPE_CLASS = "DnsResolver";
-        static readonly ILogger _log = new Logs(TYPE_CLASS, new LoggerConfiguration());
+        private static readonly string TYPE_CLASS = "DnsResolver";
+        private static readonly ILogger _log = new Logs(TYPE_CLASS, new LoggerConfiguration());
 
         public static IP ResolveDns(string hostDns, bool useIpv6 = false)
         {

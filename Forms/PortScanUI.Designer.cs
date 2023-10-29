@@ -28,121 +28,108 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.components = new System.ComponentModel.Container();
+            this.tcpRadioButton = new System.Windows.Forms.RadioButton();
+            this.IpsOpenPanel = new System.Windows.Forms.DataGridView();
+            this.icmpRadioButton = new System.Windows.Forms.RadioButton();
+            this.StartScanButton = new System.Windows.Forms.Button();
+            this.MyIpButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.MyIpTextBox = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.IpsOpenPanel)).BeginInit();
             this.SuspendLayout();
             // 
-            // radioButton1
+            // tcpRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(205, 58);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.tcpRadioButton.AccessibleDescription = "0";
+            this.tcpRadioButton.AutoSize = true;
+            this.tcpRadioButton.Location = new System.Drawing.Point(355, 231);
+            this.tcpRadioButton.Name = "tcpRadioButton";
+            this.tcpRadioButton.Size = new System.Drawing.Size(46, 17);
+            this.tcpRadioButton.TabIndex = 1;
+            this.tcpRadioButton.TabStop = true;
+            this.tcpRadioButton.Text = "TCP";
+            this.tcpRadioButton.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // IpsOpenPanel
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 58);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(187, 243);
-            this.dataGridView1.TabIndex = 2;
+            this.IpsOpenPanel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.IpsOpenPanel.Location = new System.Drawing.Point(12, 42);
+            this.IpsOpenPanel.Name = "IpsOpenPanel";
+            this.IpsOpenPanel.Size = new System.Drawing.Size(337, 259);
+            this.IpsOpenPanel.TabIndex = 2;
             // 
-            // radioButton2
+            // icmpRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(205, 127);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 3;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.icmpRadioButton.AccessibleName = "2";
+            this.icmpRadioButton.AutoSize = true;
+            this.icmpRadioButton.Location = new System.Drawing.Point(355, 254);
+            this.icmpRadioButton.Name = "icmpRadioButton";
+            this.icmpRadioButton.Size = new System.Drawing.Size(51, 17);
+            this.icmpRadioButton.TabIndex = 5;
+            this.icmpRadioButton.TabStop = true;
+            this.icmpRadioButton.Text = "ICMP";
+            this.icmpRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // StartScanButton
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(205, 104);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(85, 17);
-            this.radioButton3.TabIndex = 4;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.StartScanButton.Location = new System.Drawing.Point(355, 277);
+            this.StartScanButton.Name = "StartScanButton";
+            this.StartScanButton.Size = new System.Drawing.Size(78, 24);
+            this.StartScanButton.TabIndex = 7;
+            this.StartScanButton.Text = "Start Scan";
+            this.StartScanButton.UseVisualStyleBackColor = true;
+            this.StartScanButton.Click += new System.EventHandler(this.StartScanButton_Click);
             // 
-            // radioButton4
+            // MyIpButton
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(205, 81);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(85, 17);
-            this.radioButton4.TabIndex = 5;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.MyIpButton.Location = new System.Drawing.Point(355, 12);
+            this.MyIpButton.Name = "MyIpButton";
+            this.MyIpButton.Size = new System.Drawing.Size(85, 24);
+            this.MyIpButton.TabIndex = 9;
+            this.MyIpButton.Text = "Get My Ip ";
+            this.MyIpButton.UseMnemonic = false;
+            this.MyIpButton.UseVisualStyleBackColor = true;
+            this.MyIpButton.Click += new System.EventHandler(this.MyIpButton_Click);
             // 
-            // button1
+            // contextMenuStrip1
             // 
-            this.button1.Location = new System.Drawing.Point(205, 255);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 46);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
-            // button2
+            // MyIpTextBox
             // 
-            this.button2.Location = new System.Drawing.Point(205, 203);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(85, 46);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.MyIpTextBox.Location = new System.Drawing.Point(12, 12);
+            this.MyIpTextBox.Name = "MyIpTextBox";
+            this.MyIpTextBox.Size = new System.Drawing.Size(337, 20);
+            this.MyIpTextBox.TabIndex = 11;
             // 
-            // panel1
+            // checkBox1
             // 
-            this.panel1.Location = new System.Drawing.Point(13, 13);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(186, 23);
-            this.panel1.TabIndex = 8;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(355, 208);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(82, 17);
+            this.checkBox1.TabIndex = 12;
+            this.checkBox1.Text = "Scan All Ips";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(205, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(85, 24);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // PortScanUII
+            // PortScanUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 318);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.radioButton4);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.radioButton1);
-            this.Name = "PortScanUII";
+            this.ClientSize = new System.Drawing.Size(444, 310);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.MyIpTextBox);
+            this.Controls.Add(this.MyIpButton);
+            this.Controls.Add(this.StartScanButton);
+            this.Controls.Add(this.icmpRadioButton);
+            this.Controls.Add(this.IpsOpenPanel);
+            this.Controls.Add(this.tcpRadioButton);
+            this.Name = "PortScanUI";
             this.Text = "PortScanUII";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.IpsOpenPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,14 +137,13 @@
 
         #endregion
 
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.RadioButton tcpRadioButton;
+        private System.Windows.Forms.DataGridView IpsOpenPanel;
+        private System.Windows.Forms.RadioButton icmpRadioButton;
+        private System.Windows.Forms.Button StartScanButton;
+        private System.Windows.Forms.Button MyIpButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.TextBox MyIpTextBox;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

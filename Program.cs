@@ -30,10 +30,9 @@ namespace PortScan
             //}
             //Console.ReadKey();
 
-            var ping = new Controller("192.168.0.0/24", TypeScan.ICMP);
-            ping.ExecController();
-            Console.ReadKey();
-
+            //var ping = new Controller("192.168.0.0/24", TypeScan.ICMP);
+            //ping.ExecController();
+            //Console.ReadKey();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new PortScanUI());

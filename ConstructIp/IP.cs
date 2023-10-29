@@ -10,6 +10,7 @@ namespace PortScan.ConstructIp
     {
         List<int> ListPorta { get; set; }
         string Ip { get; set; }
+        string openPorts { get; set; }
         AddressFamily FamilyAddress { get; }
         TypeScan TypeScan { get; set; }
     }
