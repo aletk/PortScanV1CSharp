@@ -1,0 +1,16 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/PortScan.UI/obj/Debug/PortScanUI.pdb
+/PortScan.UI/obj/Debug/PortScanUI.exe
+/PortScan.UI/obj/Debug/PortScanUI.csproj.GenerateResource.cache
+/PortScan.UI/obj/Debug/PortScanUI.csproj.CoreCompileInputs.cache
+/PortScan.UI/obj/Debug/PortScanUI.csproj.FileListAbsolute.txt
+/PortScan.UI/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/PortScan.UI/obj/Debug/PortScanUI.csproj.AssemblyReference.cache
+/PortScan.UI/bin/Debug/log.txt
+/PortScan.UI/bin/Debug/PortScan.exe
+/PortScan.UI/bin/Debug/PortScan.pdb
+/PortScan.UI/bin/Debug/PortScanUI.exe
+/PortScan.UI/bin/Debug/PortScanUI.pdb
