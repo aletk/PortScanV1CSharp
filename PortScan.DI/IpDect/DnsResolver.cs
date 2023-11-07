@@ -57,13 +57,13 @@ namespace PortScan.IpDect
         /// <summary>
         /// Realiza um scan para obter o IPv4 da maquina atual. 
         /// </summary>
-        public static List<IPAddress> ResolveMyLocalIp()
+        public static List<IPAddress> ResolveMyLocalIp(AddressFamily family)
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 _log.LogError("No Network Available");
 
-            IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
-            var ipv4Addresses = ipEntry.AddressList.Where(ip => ip.AddressFamily == AddressFamily.InterNetwork).ToList();
+            var ipEntry = Dns.GetHostEntry(Dns.GetHostName());
+            var ipv4Addresses = ipEntry.AddressList.Where(ip => ip.AddressFamily == family).ToList();
 
             if (ipv4Addresses.Any())
                 return ipv4Addresses;

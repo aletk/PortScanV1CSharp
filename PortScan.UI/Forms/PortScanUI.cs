@@ -21,7 +21,7 @@ namespace PortScan.Forms
             var myIp = MyIpTextBox.Text.Trim();
             if (string.IsNullOrEmpty(myIp))
             {
-                MessageBox.Show("O endereço de IP vazio, é preciso preencher ou dar um get no seu ip");
+                MessageBox.Show("O endereço de IP está vazio, é preciso preencher ou dar um get no seu ip");
                 return;
             }
 
@@ -30,8 +30,6 @@ namespace PortScan.Forms
             var controller = new Controller(myIp, (TypeScan)radioButtonSelecionado);
             var result = await controller.ExecController();
 
-            IpsOpenPanel.DataSource = null;
-            IpsOpenPanel.AutoGenerateColumns = true;
             IpsOpenPanel.AutoResizeColumns();
 
             IpsOpenPanel.DataSource = result;
@@ -40,8 +38,8 @@ namespace PortScan.Forms
 
         private void MyIpButton_Click(object sender, EventArgs e)
         {
-            var t = DnsResolver.ResolveMyLocalIp();
-            MyIpTextBox.Text = t.FirstOrDefault().ToString();
+            var myLocalIp = DnsResolver.ResolveMyLocalIp(AddressFamily.InterNetwork);
+            MyIpTextBox.Text = myLocalIp.FirstOrDefault().ToString();
         }
     }
 }

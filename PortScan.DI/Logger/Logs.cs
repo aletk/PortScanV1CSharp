@@ -8,6 +8,9 @@ using System.IO;
 namespace PortScan
 {
 
+    /// <summary>
+    /// Essa classe serve para poder configurar os logs do sistema, utilizando um LoggerConfiguration, podendo passar também um arquivo. 
+    /// </summary>
     class Logs : ILogger
     {
 
@@ -15,9 +18,6 @@ namespace PortScan
         private readonly LoggerConfiguration _config;
         private readonly object Lock = new object();
 
-        /// <summary>
-        /// Essa classe serve para poder configurar os logs do sistema, utilizando um LoggerConfiguration, podendo passar também um arquivo. 
-        /// </summary>
         public Logs(string name, LoggerConfiguration config)
         {
             Name = name;

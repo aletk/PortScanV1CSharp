@@ -28,13 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tcpRadioButton = new System.Windows.Forms.RadioButton();
             this.IpsOpenPanel = new System.Windows.Forms.DataGridView();
             this.icmpRadioButton = new System.Windows.Forms.RadioButton();
             this.StartScanButton = new System.Windows.Forms.Button();
             this.MyIpButton = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MyIpTextBox = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.IpsOpenPanel)).BeginInit();
@@ -93,11 +91,6 @@
             this.MyIpButton.UseVisualStyleBackColor = true;
             this.MyIpButton.Click += new System.EventHandler(this.MyIpButton_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // MyIpTextBox
             // 
             this.MyIpTextBox.Location = new System.Drawing.Point(12, 12);
@@ -142,7 +135,6 @@
         private System.Windows.Forms.RadioButton icmpRadioButton;
         private System.Windows.Forms.Button StartScanButton;
         private System.Windows.Forms.Button MyIpButton;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.TextBox MyIpTextBox;
         private System.Windows.Forms.CheckBox checkBox1;
     }

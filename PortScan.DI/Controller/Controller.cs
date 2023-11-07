@@ -14,7 +14,7 @@ namespace PortScan.Controllers
     public class Controller
     {
         private readonly ILogger _log;
-        private TypeScan _typeScan {get; set;}
+        private TypeScan _typeScan { get; set; }
         public string IP { get; set; }
 
         public Controller(string ipscan, TypeScan typescan)
@@ -26,13 +26,16 @@ namespace PortScan.Controllers
 
         public async Task<List<IP>> ExecController()
         {
-            if(_typeScan == TypeScan.TCP ||  _typeScan == TypeScan.ICMP)
+            switch (_typeScan)
             {
-                PingScan pingTcp = new PingScan(IP, _typeScan, _log);
+                case TypeScan.TCP:
+                case TypeScan.ICMP:
+                    PingScan pingTcp = new PingScan(IP, _typeScan, _log);
+                    return await pingTcp.ExecScan();
 
-                return await pingTcp.ExecScan();
+                default:
+                    return new List<IP>();
             }
-            return new List<IP>();
         }
     }
 }
