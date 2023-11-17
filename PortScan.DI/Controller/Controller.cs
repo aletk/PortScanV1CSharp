@@ -24,7 +24,7 @@ namespace PortScan.Controllers
             _log = new Logs(typescan.GetDescription(), new LoggerConfiguration());
         }
 
-        public async Task<List<IP>> ExecController()
+        public async Task<List<IIP>> ExecController()
         {
             switch (_typeScan)
             {
@@ -34,7 +34,7 @@ namespace PortScan.Controllers
                     return await pingTcp.ExecScan();
 
                 default:
-                    return new List<IP>();
+                    return new List<IIP>();
             }
         }
     }

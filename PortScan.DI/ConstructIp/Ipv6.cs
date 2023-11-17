@@ -4,13 +4,13 @@ using TypeScanConst;
 
 namespace PortScan.ConstructIp
 {
-    internal class Ipv6 : IP
+    internal class Ipv6 : IIP
     {
-        AddressFamily IP.FamilyAddress => AddressFamily.InterNetworkV6;
+        AddressFamily IIP.FamilyAddress => AddressFamily.InterNetworkV6;
         public List<int> ListPorta { get; set; }
         public string Ip { get; set; }
         private TypeScan _typeScan { get; set; }
-        TypeScan IP.TypeScan { get => _typeScan; set => _typeScan = value; }
+        TypeScan IIP.TypeScan { get => _typeScan; set => _typeScan = value; }
         public string openPorts
         {
             get

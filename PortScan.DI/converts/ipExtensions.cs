@@ -10,7 +10,7 @@ namespace PortScan.Extensions
         /// <summary>
         /// Valida se é um IP valido. . 
         /// </summary>
-        public static bool IsValidIp(this IP ip)
+        public static bool IsValidIp(this IIP ip)
         {
             const string DEFAULT_IP_RANGE = "/24";
 

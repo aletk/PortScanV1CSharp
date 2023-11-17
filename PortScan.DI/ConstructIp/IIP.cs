@@ -9,7 +9,7 @@ namespace PortScan.ConstructIp
     /// <summary>
     /// Essa interface é a representação de uma IP. 
     /// </summary>
-    public interface IP
+    public interface IIP
     {
         List<int> ListPorta { get; set; }
         string Ip { get; set; }

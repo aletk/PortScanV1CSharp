@@ -146,7 +146,7 @@
     <Compile Include="IpDect\DnsResolver.cs" />
     <Compile Include="IpDect\IpGenerator.cs" />
     <Compile Include="IpDect\PingScan.cs" />
-    <Compile Include="ConstructIp\IP.cs" />
+    <Compile Include="ConstructIp\IIP.cs" />
     <Compile Include="ConstructIp\Ipv4.cs" />
     <Compile Include="ConstructIp\Ipv6.cs" />
     <Compile Include="IpDect\TypeScan.cs" />

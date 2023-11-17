@@ -16,7 +16,7 @@ namespace PortScan.IpDect
     internal class PingScan : IpGenerator
     {
         private TypeScan _typeScan;
-        public List<IP> IpOpen = new List<IP>();
+        public List<IIP> IpOpen = new List<IIP>();
 
         public PingScan(string ipadress, TypeScan typeScan, ILogger logger)
             : base(ipadress, typeScan, logger)
@@ -27,7 +27,7 @@ namespace PortScan.IpDect
         /// <summary>
         /// Executa uma task de scan a partir do tipo solicitado pela usuário.
         /// </summary>
-        public async Task<List<IP>> ExecScan()
+        public async Task<List<IIP>> ExecScan()
         {
             var tasks = new List<Task>();
             switch (_typeScan)

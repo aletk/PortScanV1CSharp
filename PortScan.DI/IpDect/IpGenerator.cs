@@ -17,8 +17,8 @@ namespace PortScan.IpDect
         private const string DEFAULT_IP_RANGE = "/24";
         private string _hostNameOrIp { get; set; }
         private TypeScan _typeScan { get; set; }
-        public IP HostNameResolve { get; set; }
-        public List<IP> IpList { get; private set; }
+        public IIP HostNameResolve { get; set; }
+        public List<IIP> IpList { get; private set; }
         protected ILogger _logger;
 
         public IpGenerator(string hostNameOrIp, TypeScan typeScan, ILogger logger)
@@ -30,11 +30,11 @@ namespace PortScan.IpDect
         }
 
         /// <summary>
-        /// Método principal, responsável por solicitar a geração da lista de IPS Contendo até mesmo resolução de DNS.
+        /// Método principal, responsável por solicitar a geração da lista de IPS Contendo uma resolução de DNS.
         /// </summary>
-        public List<IP> GenerateIpList()
+        public List<IIP> GenerateIpList()
         {
-            var ipList = new List<IP>();
+            var ipList = new List<IIP>();
             try
             {
                 ResolveHost(false);
@@ -76,9 +76,9 @@ namespace PortScan.IpDect
         /// <summary>
         /// Realiza o tratamento do IP, gerando uma lista de 254 ips caso seja passado uma mascara de rede /24 bits com portas default .
         /// </summary>
-        private List<IP> GenerateListIpAddresse(IP baseIp, string ipRange, TypeScan typeScan)
+        private List<IIP> GenerateListIpAddresse(IIP baseIp, string ipRange, TypeScan typeScan)
         {
-            var ListIpAddresses = new List<IP>();
+            var ListIpAddresses = new List<IIP>();
 
             var ipCutOff = CropIpAddress(baseIp.Ip);
 
