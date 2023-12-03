@@ -61,6 +61,9 @@ namespace PortScan.IpDect
         {
             if (IsHostName(_hostNameOrIp))
                 HostNameResolve = DnsResolver.ResolveDns(_hostNameOrIp, useIpv6);
+
+            if (useIpv6)
+                HostNameResolve = new Ipv6(_hostNameOrIp, _typeScan);
             else
                 HostNameResolve = new Ipv4(_hostNameOrIp, _typeScan);
         }

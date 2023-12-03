@@ -21,7 +21,10 @@ namespace PortScan.IpDect
         {
             try
             {
-                var addressFamily = useIpv6 ? AddressFamily.InterNetworkV6 : AddressFamily.InterNetwork;
+                var addressFamily = useIpv6 
+                                  ? AddressFamily.InterNetworkV6 
+                                  : AddressFamily.InterNetwork;
+
                 var addresses = Dns.GetHostAddresses(hostDns);
 
                 var address = addresses.FirstOrDefault(addr => addr.AddressFamily == addressFamily).ToString()
